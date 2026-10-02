@@ -51,14 +51,19 @@ switch (discount) {
 
 const isLoggedIn = true;
 
-isLoggedIn ? console.log("User is logged in") : console.log("User is not logged in");
+//improve dari mentor jangan gunakan kode dibawah karena ternary sebenarnya merupakan expression bukan statement, jadi tidak bisa digunakan untuk menggantikan if else statement.
+//isLoggedIn ? console.log("User is logged in") : console.log("User is not logged in");
 
+const message = isLoggedIn ? "User is logged in" : "User is not logged in";
 
+console.log(message);
 
 // functions
 
 //-- function declaration
 
+
+//imporve dari mentor, sebaiknya gunakan parameter daripada menggunakan hardcode value di dalam function, agar lebih fleksibel dan reusable
 function calculateTotal() {
     const price = 100;
     const tax = 0.1;
@@ -104,7 +109,8 @@ const parseProtocolUrl = (url) => {
 console.log(parseProtocolUrl("https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring"));
 
 
-const userData = ({ name, address: { street, city: city } }) => {
+//improve dari kode dibawah, sebaiknya hanya gunakan city saja, karena propertyName dan variableName sama, jadi tidak perlu menulis city: city, cukup city saja
+const userData = ({ name, address: { street, city } }) => {
     return `Hello ${name}, you live at ${street}, ${city}`;
 }
 
@@ -129,12 +135,13 @@ const menus = [
     }
 ]
 
+//impove kode dibawah, gunakan nama parameter yang readable, jangan gunakan nama parameter yang terlalu singkat, agar lebih mudah dibaca dan dimengerti
 for(const { name: n, category: { name: c } } of menus) {
     console.log(`Menu: ${n}, Category: ${c}`);
 }
 
 //spread operator
-
+//improve dari mentor, jangan gunakan spread operator pada primitive value seperti boolean, string, dan number karena tidak akan menghasilkan object yang diinginkan. Spread operator sebaiknya digunakan pada object atau array saja.
 const obj = { ...true, ..."test", ...10 };
 
 console.log(obj);
@@ -174,3 +181,11 @@ const multiply = (multiplier, ...theArgs) => {
 }
 
 console.log(multiply(2, 1, 2, 3, 4));
+
+
+//Review Overall 8.1/10
+//Point penting:
+//1. Jangan hanya membuat koda yang "works" saja, tapi mulai berfikir untuk apakah kode ini sudah reusable.
+//2. Perhatikan naming (variable, function, parameter), jangan terlalu singkat, gunakan nama yang readable dan mudah dimengerti.
+//3. pahami 'why', bukan hanya syntax
+//4. bejar tentang immutability
