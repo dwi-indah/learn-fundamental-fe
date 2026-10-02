@@ -150,4 +150,10 @@ const sum = ( a, b, c ) => {
 }
 
 console.log(sum(...numbers));
+const calculate = function (...numbers) {
+  console.log(numbers);
+};
+
+calculate(10, 20, 30, 40);
+
 //rest operator
