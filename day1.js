@@ -156,4 +156,21 @@ const calculate = function (...numbers) {
 
 calculate(10, 20, 30, 40);
 
+
+const isSummer = true;
+const fruits = ["apple", "banana", ...(isSummer ? ["watermelon"] : ["dates"])];
+
+console.log(fruits);
+
+const obj1 = { foo: "bar", x: 42 };
+const obj2 = { foo: "baz", y: 13 };
+
+const mergedObj = { x: 41, ...obj1, ...obj2, y: 9 };
+console.log(mergedObj);
 //rest operator
+
+const multiply = (multiplier, ...theArgs) => {
+    return theArgs.map((el) => multiplier * el);
+}
+
+console.log(multiply(2, 1, 2, 3, 4));
