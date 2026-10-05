@@ -39,58 +39,92 @@
 // console.log(`Length: ${numbers.length}`)
 // console.log(`Total: ${total}`)
 
-const products = [
-    {
-        id: 1,
-        name: "Keyboard",
-        price: 500000
-    },
-    {
-        id: 2,
-        name: "Mouse",
-        price: 250000
-    },
-    {
-        id: 3,
-        name: "Monitor",
-        price: 2000000
-    }
-];
+// const products = [
+//     {
+//         id: 1,
+//         name: "Keyboard",
+//         price: 500000
+//     },
+//     {
+//         id: 2,
+//         name: "Mouse",
+//         price: 250000
+//     },
+//     {
+//         id: 3,
+//         name: "Monitor",
+//         price: 2000000
+//     }
+// ];
 
-console.log(products[0].name);
-console.log(products[products.length - 1].price);
+// console.log(products[0].name);
+// console.log(products[products.length - 1].price);
 
-products.unshift({
-    id: 4,
-    name: "Webcam",
-    price: 750000
-})
+// products.unshift({
+//     id: 4,
+//     name: "Webcam",
+//     price: 750000
+// })
 
-const removedProduct = products.shift();
-console.log(removedProduct);
+// const removedProduct = products.shift();
+// console.log(removedProduct);
 
-products.push({
-    id: 5,
-    name: "Headset",
-    price: 600000
-})
+// products.push({
+//     id: 5,
+//     name: "Headset",
+//     price: 600000
+// })
 
-for ( const product of products) {
-    console.log(`${product.name} - Rp${product.price}`);
-}
+// for ( const product of products) {
+//     console.log(`${product.name} - Rp${product.price}`);
+// }
 
-for (let i = 0; i < products.length; i++) {
-    console.log(`${i} - ${products[i].name}`)
-}
+// for (let i = 0; i < products.length; i++) {
+//     console.log(`${i} - ${products[i].name}`)
+// }
 
-let total = 0;
-for (const totalProduct of products) {
-    total += totalProduct.price;
-}
-console.log(`Total: ${total}`);
+// let total = 0;
+// for (const totalProduct of products) {
+//     total += totalProduct.price;
+// }
+// console.log(`Total: ${total}`);
 
 //Perbedaan push() & unshift() = push() menambahkan item pada akhir array, sedangkan unshift() menambahkan item pada awal array.
 
 //Perbedaan pop() & shift() = pop() menghapus item pada akhir array, sedangkan shift() menghapus item pada awal array.
 
 //for...of mengembalikan value dari setiap item dalam array, sedangkan for...in mengembalikan index dari setiap item dalam array.
+
+const cart = [
+    {
+        name: "Keyboard",
+        price: 500000,
+        quantity: 2
+    },
+    {
+        name: "Mouse",
+        price: 250000,
+        quantity: 3
+    },
+    {
+        name: "Monitor",
+        price: 2000000,
+        quantity: 1
+    }
+];
+
+let grandTotal = 0;
+let totalQuantity = 0;
+
+for (const item of cart) {
+    const subtotal = item.price * item.quantity;
+
+    console.log(item.name);
+    console.log(`${item.name} - ${item.quantity} pcs`);
+    console.log(`${item.name}: ${item.price * item.quantity}`);
+    grandTotal += subtotal;
+    totalQuantity += item.quantity;
+}
+
+console.log(`Grand Total: ${grandTotal}`);
+console.log(`Total Quantity: ${totalQuantity}`);
