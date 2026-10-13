@@ -1,0 +1,22 @@
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+.recipeCard {
+    border-radius: 8px;
+    border: 1px solid #999;
+    padding: 16px;
+}
+
+.shoppingAction {
+    display: flex;
+    gap: 24px;
+    * > button {
+        border: 1px solid #999;
+        border-radius: 8px;
+        padding: 4px 12px;
+    }
+}

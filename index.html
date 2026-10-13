@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1 id="appTitle">My Recipe App</h1>
@@ -11,13 +12,32 @@
 
     <button id="updateButton">Update Button</button>
 
-    <div class="recipeCard">
-        <img src="" alt="" id="recipeImage">
-        <p class="recipeName">Soup</p>
-        <button id="favoriteButton" class="btn">Favorite</button>
+    <div class="container">
+        <div class="recipeCard">
+            <!-- <img src="" alt="" id="recipeImage"> -->
+            <p class="recipeName">Soup</p>
+            <button id="favoriteButton" class="btn">Add to Favorite</button>
+            <!-- <button id="saveButton">Save</button> -->
+        </div>
     </div>
 
-    <script src="day9.js"></script>
+    <h2>Shopping List</h2>
+    <input type="text" name="addItem" id="addItem" placeholder="Add Ingredient" />
+    <div class="shoppingAction">
+        <button id="addIngredient">Add Ingredients
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                <path d="M2 4.25A2.25 2.25 0 0 1 4.25 2h2.5A2.25 2.25 0 0 1 9 4.25v2.5A2.25 2.25 0 0 1 6.75 9h-2.5A2.25 2.25 0 0 1 2 6.75v-2.5ZM2 13.25A2.25 2.25 0 0 1 4.25 11h2.5A2.25 2.25 0 0 1 9 13.25v2.5A2.25 2.25 0 0 1 6.75 18h-2.5A2.25 2.25 0 0 1 2 15.75v-2.5ZM11 4.25A2.25 2.25 0 0 1 13.25 2h2.5A2.25 2.25 0 0 1 18 4.25v2.5A2.25 2.25 0 0 1 15.75 9h-2.5A2.25 2.25 0 0 1 11 6.75v-2.5ZM15.25 11.75a.75.75 0 0 0-1.5 0v2h-2a.75.75 0 0 0 0 1.5h2v2a.75.75 0 0 0 1.5 0v-2h2a.75.75 0 0 0 0-1.5h-2v-2Z" />
+                </svg>
+
+        </button>
+        <button id="removeIngredient">Clear List</button>
+    </div>
+    <div class="container">
+        <ul id="shoppingList"></ul>
+
+    </div>
+
+    <script src="day10.js"></script>
     <!-- <script src="miniproject1.js"></script> -->
 </body>
 </html>
