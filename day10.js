@@ -13,8 +13,7 @@ const removeIngredient = document.querySelector("#removeIngredient");
 const shoppingList = document.querySelector("#shoppingList");
 const inputIngredient = document.querySelector("#addItem");
 
-addIngredient.addEventListener("click", function(event) {
-    event.preventDefault();
+addIngredient.addEventListener("click", function() {
 
     const ingredient = inputIngredient.value.trim();
 
