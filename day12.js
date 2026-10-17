@@ -51,6 +51,10 @@ const recipeList = document.querySelector("#recipeList");
 const buttonLoadRecipes = document.querySelector("#loadRecipes");
 
 const fetchRecipes = async () => {
+    recipeList.replaceChildren();
+    statusElement.textContent = "Loading recipes...";
+    fetchRecipes();
+
     try {
         const response = await fetch("https://dummyjson.com/recipes?limit=5");
 
@@ -68,16 +72,10 @@ const fetchRecipes = async () => {
 
         statusElement.textContent = "";
     } catch (error) {
-        console.log("Error:", error.message);
+        console.log("Error:", error);
         statusElement.textContent = `Terjadi Error: ${error.message}`;
     }
 }
 
-buttonLoadRecipes.addEventListener("click", function() {
-    if(recipeList.children.length > 0) {
-        recipeList.replaceChildren();
-    }
-    statusElement.textContent = "Loading recipes...";
-    fetchRecipes();
-})
+buttonLoadRecipes.addEventListener("click", fetchRecipes)
 
