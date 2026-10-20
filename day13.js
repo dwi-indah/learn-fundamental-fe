@@ -80,6 +80,6 @@ const saveRecipe = (recipe) => {
     }
 }
 
-console.log(saveRecipe(recipe));
-console.log(saveRecipe(recipe2));
-console.log(saveRecipe(recipe3));
+saveRecipe(recipe);
+saveRecipe(recipe2);
+saveRecipe(recipe3);
