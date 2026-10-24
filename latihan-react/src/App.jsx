@@ -1,20 +1,14 @@
 import { useState } from 'react';
 import './App.css';
+import RecipeCard from './components/RecipeCard';
 // import FavoriteButton from './components/FavoriteButton';
 
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      <span>{count}</span>
-      <button onClick={() => setCount((previousCount) => previousCount + 1)}>Increase</button>
-      <button onClick={() => setCount((previousCount) => previousCount - 1)}>Decrase</button>
-      <button onClick={() => setCount(0)}>Reset</button>
-    </div>
-  )
-}
+const recipes = [
+  { id: 1, name: "Chicken Soup", servings: 2, category: "Soup" },
+  { id: 2, name: "Vegetable Salad", servings: 2, category: "Salad" },
+  { id: 3, name: "Tofu Soup", servings: 4, category: "Soup" },
+  { id: 4, name: "Fried Rice", servings: 3, category: "Rice" },
+];
 
 function RecipeServings({ name }) {
   const [servings, setServings] = useState(2);
@@ -33,31 +27,24 @@ function RecipeServings({ name }) {
   )
 }
 
-function RecipeCard({ name, servings }) {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-
-  return(
-    <article>
-      <h2>{name}</h2>
-      <p>Servings: {servings}</p>
-      <button onClick={() => setIsFavorite(!isFavorite)}>
-        { isFavorite ? "Remove from Favorites" : "Add to Favorites" }
-      </button>
-      <span>status: { isFavorite ? "Favorite" : "Not Favorite" }</span>
-    </article>
-  )
-}
-
 function App() {
+  const [category, setCategory] = useState("All");
 
   return (
     <>
-      <Counter />
+      <section className='filter-list'>
+        <button onClick={()=> setCategory("All")}>All</button>
+        <button onClick={()=> setCategory("Soup")}>Soup</button>
+        <button onClick={()=> setCategory("Salad")}>Salad</button>
+        <button onClick={()=> setCategory("Rice")}>Rice</button>
+      </section>
       <br />
-      <RecipeServings name="Chicken Soup" />
-      <br />
-      <RecipeCard name="Tofu Soup" servings={3} />
+      <section className="recipe-list">
+        { recipes.filter((recipe) => category === "All" || recipe.category === category)
+        .map((recipe) => (
+          <RecipeCard key={recipe.id} id={recipe.id} name={recipe.name} servings={recipe.servings} />
+        ))}
+      </section>
     </>
   )
 }

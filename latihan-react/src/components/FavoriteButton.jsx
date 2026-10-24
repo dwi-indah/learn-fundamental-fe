@@ -11,3 +11,7 @@ function FavoriteButton() {
 }
 
 export default FavoriteButton;
+
+        /* {recipes.map((recipe) => (
+          <RecipeCard key={recipe.id} name={recipe.name} servings={recipe.servings} />
+        ))} */
