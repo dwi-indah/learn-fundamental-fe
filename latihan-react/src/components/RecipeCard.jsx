@@ -5,7 +5,7 @@ function RecipeCard({ id, name, servings }) {
 
 
   return(
-    <article className="recipe-card">
+    <article className="recipe-card" id={id}>
       <h2>{name}</h2>
       <p>Servings: {servings}</p>
       <button onClick={() => setIsFavorite(prev => !prev)}>

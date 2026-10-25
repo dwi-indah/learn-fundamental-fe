@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './App.css';
 import RecipeCard from './components/RecipeCard';
-// import FavoriteButton from './components/FavoriteButton';
 
 const recipes = [
   { id: 1, name: "Chicken Soup", servings: 2, category: "Soup" },
@@ -10,28 +9,34 @@ const recipes = [
   { id: 4, name: "Fried Rice", servings: 3, category: "Rice" },
 ];
 
-function RecipeServings({ name }) {
-  const [servings, setServings] = useState(2);
-
+function RecipeAvailability({recipes}) {
   return (
-    <article className="recipe-card">
-      <h2>{name}</h2>
-      <p>Servings: {servings}</p>
-      <div>
-        <button onClick={() => setServings((previousServings) => previousServings + 1)}>+</button>
-        {/* <button disabled={servings === 1} onClick={() => setServings((previousServings) => previousServings > 1 ? previousServings - 1 : previousServings)}>-</button> */}
-        <button disabled={servings === 1} onClick={() => setServings((previousServings) => Math.max(1, previousServings - 1))}>-</button>
-      </div>
-
-    </article>
+    <>
+      {recipes.length === 0 ? 
+        <p>No recipes available.</p> : <p>Recipes are available.</p>
+      }
+    </>
   )
 }
 
 function App() {
   const [category, setCategory] = useState("All");
+  const [search, setSearch] = useState("");
+
+  const filteredRecipes = recipes.filter((recipe) => {
+    const matchesName = recipe.name.toLowerCase().includes(search.toLowerCase());
+
+    const matchesCategory = category === "All" || recipe.category === category;
+
+    return matchesName && matchesCategory;
+  });
 
   return (
     <>
+      <RecipeAvailability recipes={recipes}/>
+      <br/>
+      <input type="text" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search recipes..." />
+
       <section className='filter-list'>
         <button onClick={()=> setCategory("All")}>All</button>
         <button onClick={()=> setCategory("Soup")}>Soup</button>
@@ -40,10 +45,18 @@ function App() {
       </section>
       <br />
       <section className="recipe-list">
-        { recipes.filter((recipe) => category === "All" || recipe.category === category)
-        .map((recipe) => (
-          <RecipeCard key={recipe.id} id={recipe.id} name={recipe.name} servings={recipe.servings} />
-        ))}
+        {filteredRecipes.length > 0 ? (
+          filteredRecipes.map((recipe) => (
+            <RecipeCard 
+              key={recipe.id}
+              id={recipe.id}
+              name={recipe.name}
+              servings={recipe.servings}
+            />
+          ))
+        ) : (
+          <p>No recipes found.</p>
+        )}
       </section>
     </>
   )
