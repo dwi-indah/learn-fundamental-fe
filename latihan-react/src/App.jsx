@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import RecipeForm from './components/RecipeForm';
 import RecipeCard from './components/RecipeCard';
 
 const recipes = [
@@ -58,6 +59,9 @@ function App() {
           <p>No recipes found.</p>
         )}
       </section>
+
+      <br />
+      <RecipeForm />
     </>
   )
 }
