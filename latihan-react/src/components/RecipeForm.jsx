@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function RecipeForm() {
+function RecipeForm({onAddRecipe}) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -57,8 +57,8 @@ function RecipeForm() {
         servings: convertServings,
         isVegetarian: isVegetarian
     };
-    
-    Object.entries(newRecipe).forEach(([key, value]) => console.log(`${key}: ${value}`))
+
+    onAddRecipe(newRecipe);
 
     setName("");
     setDescription("");

@@ -3,13 +3,6 @@ import './App.css';
 import RecipeForm from './components/RecipeForm';
 import RecipeCard from './components/RecipeCard';
 
-const recipes = [
-  { id: 1, name: "Chicken Soup", servings: 2, category: "Soup" },
-  { id: 2, name: "Vegetable Salad", servings: 2, category: "Salad" },
-  { id: 3, name: "Tofu Soup", servings: 4, category: "Soup" },
-  { id: 4, name: "Fried Rice", servings: 3, category: "Rice" },
-];
-
 function RecipeAvailability({recipes}) {
   return (
     <>
@@ -21,8 +14,22 @@ function RecipeAvailability({recipes}) {
 }
 
 function App() {
+
+  const [recipes, setRecipes] = useState([
+    { id: 1, name: "Chicken Soup", servings: 2, category: "Soup" },
+    { id: 2, name: "Vegetable Salad", servings: 2, category: "Salad" },
+    { id: 3, name: "Tofu Soup", servings: 4, category: "Soup" },
+    { id: 4, name: "Fried Rice", servings: 3, category: "Rice" },
+  ]);
   const [category, setCategory] = useState("All");
   const [search, setSearch] = useState("");
+
+
+  const handleAddRecipe = (newRecipe) => {
+    setRecipes(prevRecipes => [
+      ...prevRecipes, 
+      newRecipe]);
+  };
 
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesName = recipe.name.toLowerCase().includes(search.toLowerCase());
@@ -53,6 +60,8 @@ function App() {
               id={recipe.id}
               name={recipe.name}
               servings={recipe.servings}
+              description={recipe.description}
+              isVegetarian={recipe.isVegetarian}
             />
           ))
         ) : (
@@ -61,7 +70,7 @@ function App() {
       </section>
 
       <br />
-      <RecipeForm />
+      <RecipeForm onAddRecipe={handleAddRecipe} />
     </>
   )
 }
