@@ -31,6 +31,18 @@ function App() {
       newRecipe]);
   };
 
+  const handleUpdateRecipe = (recipeId, newServings) => {
+    setRecipes((prevRecipes) => 
+      prevRecipes.map((recipe) => 
+        recipe.id === recipeId ? {...recipe, servings: newServings} : recipe
+      )
+    );
+  }
+
+  const handleDeleteRecipe = (recipeId) => {
+    setRecipes((prevRecipes) => prevRecipes.filter((recipe) => recipe.id !== recipeId));
+  }
+
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesName = recipe.name.toLowerCase().includes(search.toLowerCase());
 
@@ -40,7 +52,7 @@ function App() {
   });
 
   return (
-    <>
+    <main>
       <RecipeAvailability recipes={recipes}/>
       <br/>
       <input type="text" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search recipes..." />
@@ -62,6 +74,8 @@ function App() {
               servings={recipe.servings}
               description={recipe.description}
               isVegetarian={recipe.isVegetarian}
+              onUpdateRecipe={handleUpdateRecipe}
+              onDeleteRecipe={handleDeleteRecipe}
             />
           ))
         ) : (
@@ -71,7 +85,7 @@ function App() {
 
       <br />
       <RecipeForm onAddRecipe={handleAddRecipe} />
-    </>
+    </main>
   )
 }
 

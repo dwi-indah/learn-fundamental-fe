@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function RecipeForm({onAddRecipe}) {
+function RecipeForm({onAddRecipe, onUpdateRecipe, onDeleteRecipe}) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
