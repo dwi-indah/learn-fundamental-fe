@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
 import RecipeForm from './components/RecipeForm';
 import RecipeCard from './components/RecipeCard';
 import EffectPractice from './components/EffectPractice';
-import { loadRecipes, savedRecipes } from './utils/storage.js';
+import useLocalStorage from './hooks/useLocalStorage.js';
 
 function RecipeAvailability({recipes}) {
   return (
@@ -25,14 +25,10 @@ function App() {
     { id: 5, name: "Beef Stew", servings: 5, category: "Soup" },
   ];
 
-  const [recipes, setRecipes] = useState(() => loadRecipes("recipes", defaultRecipes));
+  const [recipes, setRecipes] = useLocalStorage("recipes", defaultRecipes);
   const [category, setCategory] = useState("All");
   const [search, setSearch] = useState("");
   const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    savedRecipes("recipes", recipes);
-  }, [recipes]);
 
 
   const handleAddRecipe = (newRecipe) => {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TogglePractice from "./TogglePractice";
 
 function RecipeCard({ id, name, servings, description, isVegetarian, onUpdateRecipe, onDeleteRecipe }) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -15,8 +16,14 @@ function RecipeCard({ id, name, servings, description, isVegetarian, onUpdateRec
         { isFavorite ? "Remove from Favorites" : "Add to Favorites" }
       </button>
       <span>status: { isFavorite ? "Favorite" : "Not Favorite" }</span>
-      {description && <p>{description}</p>}
-      {isVegetarian && <p>Recipe is for Vegetarian</p>}
+      {description && 
+        <TogglePractice text="Description">
+          {description}
+        </TogglePractice>}
+      {isVegetarian && 
+        <TogglePractice text="Vegetarian">
+          <p>Recipe is for Vegetarian</p>
+        </TogglePractice>}
       <button onClick={() => onDeleteRecipe(id)}>Delete Recipe</button>
     </article>
   )
