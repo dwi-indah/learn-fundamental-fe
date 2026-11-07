@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import RecipeForm from './components/RecipeForm';
 import RecipeCard from './components/RecipeCard';
+import EffectPractice from './components/EffectPractice';
+import { loadRecipes, savedRecipes } from './utils/storage.js';
 
 function RecipeAvailability({recipes}) {
   return (
@@ -15,20 +17,34 @@ function RecipeAvailability({recipes}) {
 
 function App() {
 
-  const [recipes, setRecipes] = useState([
+  const defaultRecipes = [
     { id: 1, name: "Chicken Soup", servings: 2, category: "Soup" },
     { id: 2, name: "Vegetable Salad", servings: 2, category: "Salad" },
     { id: 3, name: "Tofu Soup", servings: 4, category: "Soup" },
     { id: 4, name: "Fried Rice", servings: 3, category: "Rice" },
-  ]);
+    { id: 5, name: "Beef Stew", servings: 5, category: "Soup" },
+  ];
+
+  const [recipes, setRecipes] = useState(() => loadRecipes("recipes", defaultRecipes));
   const [category, setCategory] = useState("All");
   const [search, setSearch] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    savedRecipes("recipes", recipes);
+  }, [recipes]);
 
 
   const handleAddRecipe = (newRecipe) => {
     setRecipes(prevRecipes => [
       ...prevRecipes, 
-      newRecipe]);
+      {
+        ...newRecipe,
+        name: typeof newRecipe.name === 'string' ? newRecipe.name : String(newRecipe.name || ""),
+        servings: Number(newRecipe.servings) || 1, 
+        category: String(newRecipe.category || "Uncategorized")
+      }  
+    ]);
   };
 
   const handleUpdateRecipe = (recipeId, newServings) => {
@@ -85,6 +101,11 @@ function App() {
 
       <br />
       <RecipeForm onAddRecipe={handleAddRecipe} />
+      <br />
+      <button onClick={() => setIsVisible(prev => !prev)}>
+        { isVisible ? "Hide Effect Practice" : "Show Effect Practice" }
+      </button>
+      {isVisible && <EffectPractice />}
     </main>
   )
 }
