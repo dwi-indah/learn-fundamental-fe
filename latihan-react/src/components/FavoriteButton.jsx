@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { FavoritesContext } from "../context/FavoritesContext";
 
 function FavoriteButton() {
-    const [isFavorite, setIsFavorite] = useState(false);
+    const { favorites, setFavorites } = useContext(FavoritesContext);
 
     return (
         <button onClick={() => setIsFavorite(!isFavorite)}>

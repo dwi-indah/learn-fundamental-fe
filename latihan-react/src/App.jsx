@@ -4,6 +4,8 @@ import RecipeForm from './components/RecipeForm';
 import RecipeCard from './components/RecipeCard';
 import EffectPractice from './components/EffectPractice';
 import useLocalStorage from './hooks/useLocalStorage.js';
+import { FavoritesContext, FavoritesProvider } from './context/FavoritesContext.jsx';
+import FavoritesList from './components/FavoritesList.jsx';
 
 function RecipeAvailability({recipes}) {
   return (
@@ -65,43 +67,47 @@ function App() {
 
   return (
     <main>
-      <RecipeAvailability recipes={recipes}/>
-      <br/>
-      <input type="text" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search recipes..." />
+      <FavoritesProvider>
+        <RecipeAvailability recipes={recipes}/>
+        <br/>
+        <input type="text" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search recipes..." />
 
-      <section className='filter-list'>
-        <button onClick={()=> setCategory("All")}>All</button>
-        <button onClick={()=> setCategory("Soup")}>Soup</button>
-        <button onClick={()=> setCategory("Salad")}>Salad</button>
-        <button onClick={()=> setCategory("Rice")}>Rice</button>
-      </section>
-      <br />
-      <section className="recipe-list">
-        {filteredRecipes.length > 0 ? (
-          filteredRecipes.map((recipe) => (
-            <RecipeCard 
-              key={recipe.id}
-              id={recipe.id}
-              name={recipe.name}
-              servings={recipe.servings}
-              description={recipe.description}
-              isVegetarian={recipe.isVegetarian}
-              onUpdateRecipe={handleUpdateRecipe}
-              onDeleteRecipe={handleDeleteRecipe}
-            />
-          ))
-        ) : (
-          <p>No recipes found.</p>
-        )}
-      </section>
+        <section className='filter-list'>
+          <button onClick={()=> setCategory("All")}>All</button>
+          <button onClick={()=> setCategory("Soup")}>Soup</button>
+          <button onClick={()=> setCategory("Salad")}>Salad</button>
+          <button onClick={()=> setCategory("Rice")}>Rice</button>
+        </section>
+        <br />
+        <section className="recipe-list">
+          {filteredRecipes.length > 0 ? (
+            filteredRecipes.map((recipe) => (
+              <RecipeCard 
+                key={recipe.id}
+                id={recipe.id}
+                name={recipe.name}
+                servings={recipe.servings}
+                description={recipe.description}
+                isVegetarian={recipe.isVegetarian}
+                onUpdateRecipe={handleUpdateRecipe}
+                onDeleteRecipe={handleDeleteRecipe}
+              />
+            ))
+          ) : (
+            <p>No recipes found.</p>
+          )}
+        </section>
 
-      <br />
-      <RecipeForm onAddRecipe={handleAddRecipe} />
-      <br />
-      <button onClick={() => setIsVisible(prev => !prev)}>
-        { isVisible ? "Hide Effect Practice" : "Show Effect Practice" }
-      </button>
-      {isVisible && <EffectPractice />}
+        <br />
+        <RecipeForm onAddRecipe={handleAddRecipe} />
+        <br />
+        <button onClick={() => setIsVisible(prev => !prev)}>
+          { isVisible ? "Hide Effect Practice" : "Show Effect Practice" }
+        </button>
+        {isVisible && <EffectPractice />}
+
+        <FavoritesList />
+      </FavoritesProvider>
     </main>
   )
 }

@@ -1,9 +1,20 @@
-import { useState } from "react";
+import { useContext } from "react";
 import TogglePractice from "./TogglePractice";
+import { FavoritesContext } from "../context/FavoritesContext";
 
 function RecipeCard({ id, name, servings, description, isVegetarian, onUpdateRecipe, onDeleteRecipe }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isFavorite, addFavorite, removeFavorite } = useContext(FavoritesContext);
 
+  const checkIfFavorite = isFavorite(id);
+
+  const handleFavoriteToggle = () => {
+    if(checkIfFavorite) {
+      removeFavorite(id);
+    } else {
+      const recipeData = { id, name, servings, description, isVegetarian };
+      addFavorite(recipeData);
+    }
+  }
 
   return(
     <article className="recipe-card" id={id}>
@@ -12,10 +23,10 @@ function RecipeCard({ id, name, servings, description, isVegetarian, onUpdateRec
         <button onClick={() => onUpdateRecipe(id, Math.max(1, servings - 1))}>-</button>
         {servings} servings 
         <button onClick={() => onUpdateRecipe(id, servings + 1)}>+</button></p>
-      <button onClick={() => setIsFavorite(prev => !prev)}>
-        { isFavorite ? "Remove from Favorites" : "Add to Favorites" }
+      <button onClick={handleFavoriteToggle}>
+        {checkIfFavorite ? "Remove from Favorites" : "Add to Favorites"}
       </button>
-      <span>status: { isFavorite ? "Favorite" : "Not Favorite" }</span>
+      <span>status: { checkIfFavorite ? "Favorite" : "Not Favorite" }</span>
       {description && 
         <TogglePractice text="Description">
           {description}
