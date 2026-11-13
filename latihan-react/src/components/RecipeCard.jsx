@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, memo } from "react";
 import TogglePractice from "./TogglePractice";
 import { FavoritesContext } from "../context/FavoritesContext";
 
-function RecipeCard({ id, name, servings, description, isVegetarian, onUpdateRecipe, onDeleteRecipe }) {
+const RecipeCard = memo(function RecipeCard({ id, name, servings, description, isVegetarian, onUpdateRecipe, onDeleteRecipe }) {
+  console.log("RecipeCard rendered:", name);
   const { isFavorite, addFavorite, removeFavorite } = useContext(FavoritesContext);
 
   const checkIfFavorite = isFavorite(id);
@@ -38,6 +39,6 @@ function RecipeCard({ id, name, servings, description, isVegetarian, onUpdateRec
       <button onClick={() => onDeleteRecipe(id)}>Delete Recipe</button>
     </article>
   )
-}
+});
 
 export default RecipeCard;

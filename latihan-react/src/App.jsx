@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import './App.css';
 import RecipeForm from './components/RecipeForm';
 import RecipeCard from './components/RecipeCard';
 import EffectPractice from './components/EffectPractice';
 import useLocalStorage from './hooks/useLocalStorage.js';
-import { FavoritesContext, FavoritesProvider } from './context/FavoritesContext.jsx';
+import { FavoritesProvider } from './context/FavoritesContext.jsx';
 import FavoritesList from './components/FavoritesList.jsx';
+import RecipeParent from './components/RecipeParent.jsx';
 
 function RecipeAvailability({recipes}) {
   return (
@@ -45,25 +46,27 @@ function App() {
     ]);
   };
 
-  const handleUpdateRecipe = (recipeId, newServings) => {
+  const handleUpdateRecipe = useCallback((recipeId, newServings) => {
     setRecipes((prevRecipes) => 
       prevRecipes.map((recipe) => 
         recipe.id === recipeId ? {...recipe, servings: newServings} : recipe
       )
     );
-  }
+  }, [])
 
-  const handleDeleteRecipe = (recipeId) => {
+  const handleDeleteRecipe = useCallback((recipeId) => {
     setRecipes((prevRecipes) => prevRecipes.filter((recipe) => recipe.id !== recipeId));
-  }
+  }, [])
 
-  const filteredRecipes = recipes.filter((recipe) => {
-    const matchesName = recipe.name.toLowerCase().includes(search.toLowerCase());
+  const filteredRecipes = useMemo(() => {
+    return recipes.filter((recipe) => {
+      const matchesName = recipe.name.toLowerCase().includes(search.toLowerCase());
 
-    const matchesCategory = category === "All" || recipe.category === category;
+      const matchesCategory = category === "All" || recipe.category === category;
 
-    return matchesName && matchesCategory;
-  });
+      return matchesName && matchesCategory;
+    });
+  }, [recipes, search, category]);
 
   return (
     <main>
@@ -107,6 +110,7 @@ function App() {
         {isVisible && <EffectPractice />}
 
         <FavoritesList />
+        <RecipeParent />
       </FavoritesProvider>
     </main>
   )
